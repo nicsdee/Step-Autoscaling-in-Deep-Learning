@@ -1,0 +1,30 @@
+import random
+
+# Define thresholds for auto-scaling decisions
+threshold_high = 80  # Threshold for scaling up
+threshold_low = 20   # Threshold for scaling down
+
+# Initial resource capacity
+initial_capacity = 1
+
+# Simulate workload
+def generate_workload():
+    return random.randint(0, 100)
+
+# Simulate auto-scaling decision
+def auto_scale(workload, capacity):
+    if workload > threshold_high:
+        return capacity * 2  # Scale up
+    elif workload < threshold_low:
+        return max(1, capacity // 2)  # Scale down
+    else:
+        return capacity  # Maintain current capacity
+
+# Main simulation loop
+num_iterations = 100
+current_capacity = initial_capacity
+
+for i in range(num_iterations):
+    current_workload = generate_workload()
+    current_capacity = auto_scale(current_workload, current_capacity)
+    print(f"Iteration {i+1}: Workload={current_workload}%, Capacity={current_capacity}")
